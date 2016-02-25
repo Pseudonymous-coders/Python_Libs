@@ -27,10 +27,17 @@ class Docxer:
         for file in ready_files:
             extension = splitext(dirs + file)[1]
             if "docx" in extension:
-                to_write = str(self.process_doxc(dirs + file).encode('ascii', 'ignore'))
+                to_write = ""# str(self.process_doxc(dirs + file).encode('ascii', 'ignore'))
             elif "pdf" in extension:
                 try:
                     to_write = str(self.process_pdf(dirs + file))
+                    printa = set(printable)
+                    #print to_write
+                    #to_write = to_write.encode('unicode')
+                    toreturn = ""
+                    #to_write = toreturn
+                    print to_write
+                    #to_write = to_write.replace("(<&&>)", " ")
                 except (PDFSyntaxError, Exception):
                     to_write = ""
             else:
