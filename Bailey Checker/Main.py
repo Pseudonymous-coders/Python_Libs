@@ -1,9 +1,12 @@
 from GUI import ProgressBar, MessageDialog, FileDialog
+from pytexter import Docxer
 from time import sleep
 
 gui = ProgressBar(50, 100)
 dialog = FileDialog()
 #message = MessageDialog("ERROR", "Couldn't load the requested folder")
+
+doc = Docxer()
 
 
 def exit_app(na):
@@ -13,6 +16,9 @@ def exit_app(na):
 
 
 def on_start_app():
+    files = doc.get_folder("/root/Downloads/SMELI_Essays/")
+    doc.run_files("/root/Downloads/SMELI_Essays/", files, "/root/Downloads/SMELI_Essays/Good_Files/")
+    exit(0)
     print "Analyzer Started"
     dialog_response = dialog.get_folder()
     if True:  # dialog_response[0]:
