@@ -1,0 +1,32 @@
+import sys
+import bluetooth
+from time import sleep
+
+print "Searching for devices..."
+
+service_matches = bluetooth.find_service(name="FooBar")
+
+if len(service_matches) == 0:
+    print "couldn't find the FooBar service"
+    sys.exit(0)
+
+first_match = service_matches[0]
+port = first_match["port"]
+name = first_match["name"]
+host = first_match["host"]
+
+print "connecting to \"%s\" on %s" % (name, host)
+
+sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+sock.connect((host, port))
+while 1:
+    data = raw_input("--> ")
+    if data:
+        sock.send(data)
+        got = sock.recv(4096)
+        print  got
+        if got == "%%EXIT%%":
+            sleep(1)
+            break
+sock.close()
+sys.exit(0)
